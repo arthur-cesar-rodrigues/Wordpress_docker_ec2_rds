@@ -62,35 +62,35 @@ docker-compose up -d
 
 2.5 Procurar e selecionar ***EC2*** no console da AWS.
 
-<img src=".sg/sg1.png">
+<img src="./sg/sg1.png">
 
 2.6 Selecionar ***Security Groups***. 
 
-<img src=".sg/sg2.png">
+<img src="./sg/sg2.png">
 
 2.7 Selecionar ***Create security group***.
 
-<img src=".sg/sg3.png">
+<img src="./sg/sg3.png">
 
 2.8 Informar o nome do seu Security Goup em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
-<img src=".sg/sg4.png"> mudar img
+<img src="./sg/sg4.png"> mudar img
 
 2.9 Selecionar ***Delete*** (Outbound Rules).
 
-<img src=".sg/sg5.png">
+<img src="./sg/sg5.png">
 
 2.10 Selecionar ***Create security group***.
 
-<img src=".sg/sg6.png">
+<img src="./sg/sg6.png">
 
 2.11 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
 
-<img src=".sg/sg7.png">
+<img src="./sg/sg7.png">
 
 2.2.8 Selecionar ***Add rule***.
 
-<img src=".sg/sg8.png">
+<img src="./sg/sg8.png">
 
 2.2.9 Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso (apenas para a nossa marquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
@@ -98,4 +98,4 @@ docker-compose up -d
 2.2.10 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
 > Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
 
-<img src=".sg/sg9.png">
+<img src="./sg/sg9.png">
