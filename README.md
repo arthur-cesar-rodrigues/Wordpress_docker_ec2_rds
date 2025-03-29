@@ -38,7 +38,7 @@ docker-compose up -d
 
 <img src="./local/local1.png"></img>
 
-### 2. Criando uma VPC, e uma instância EC2 
+### 2. Criando uma VPC 
 
 2.1 Procurar e selecionar ***VPC*** no console da Amazon AWS.
 > A Amazon Virtual Private Cloud (VPC) é uma rede virtual isolada que possibilita usar recursos AWS nela, como as instâncias EC2.
@@ -58,53 +58,55 @@ docker-compose up -d
 
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-2.4 Criando e configurando o Security Group das instâncias
+### 3. Criando uma instância RDS(MySQL)
 
-2.5 Procurar e selecionar ***EC2*** no console da AWS.
+3.1 Criando e configurando o Security Group das instâncias
+
+3.2 Procurar e selecionar ***EC2*** no console da AWS.
 
 <img src="./sg/sg1.png">
 
-2.6 Selecionar ***Security Groups***. 
+3.3 Selecionar ***Security Groups***. 
 
 <img src="./sg/sg2.png">
 
-2.7 Selecionar ***Create security group***.
+3.4 Selecionar ***Create security group***.
 
 <img src="./sg/sg3.png">
 
-2.8 Informar o nome do seu Security Goup em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+3.5 Informar o nome do seu Security Goup em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
-<img src="./sg/sg4.png"> mudar img
+<img src="./sg/sg4.png">
 
-2.9 Selecionar ***Delete*** (Outbound Rules).
+3.6 Selecionar ***Delete*** (Outbound Rules).
 
 <img src="./sg/sg5.png">
 
-2.10 Selecionar ***Create security group***.
+3.7 Selecionar ***Create security group***.
 
 <img src="./sg/sg6.png">
 
-2.11 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+3.8 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
 
 <img src="./sg/sg7.png">
 
-2.12 Selecionar ***Add rule***, e inserir:Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
+3.8 Selecionar ***Add rule***, e inserir:Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso (apenas para a nossa marquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
 
-2.13 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
+3.9 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
 > Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
 
-2.14 Selecionar ***Save rules***.
+3.10 Selecionar ***Save rules***.
 
 <img src="./sg/sg8.png">
 
-2.12 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
+3.11 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
 
 <img src="./sg/sg9.png">
 
-2.13 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
-> Essa regra de saída vai permitir que a instância EC2 que criaremos realizar qualquer tipo de conexão com IPs da versão 4 (vai permitir o acesso de internet para a instância).
+3.12 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
+> Essa regra de saída vai permitir que a instância EC2 que criaremos realizar qualquer tipo de conexão com IPs da versão 4 (vai permitir o acesso de internet para a instância e o acesso com a instância RDS que criaremos (MySQL)).
 
+3.13 Selecionar ***Save rules***.
 
-
-2.14 Selecionar ***Save rules***.
+<img src="./sg/sg10.png">
