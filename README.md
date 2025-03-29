@@ -97,3 +97,14 @@ docker-compose up -d
 2.14 Selecionar ***Save rules***.
 
 <img src="./sg/sg8.png">
+
+2.12 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
+
+<img src="./sg/sg9.png">
+
+2.13 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
+> Essa regra de saída vai permitir que a instância EC2 que criaremos realizar qualquer tipo de conexão com IPs da versão 4 (vai permitir o acesso de internet para a instância).
+
+
+
+2.14 Selecionar ***Save rules***.
