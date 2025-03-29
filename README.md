@@ -91,7 +91,9 @@ docker-compose up -d
 2.12 Selecionar ***Add rule***, e inserir:Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso (apenas para a nossa marquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
 
-2.2.10 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
+2.13 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
 > Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
+
+2.14 Selecionar ***Save rules***.
 
 <img src="./sg/sg8.png">
