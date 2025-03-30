@@ -4,7 +4,7 @@
 Criar uma VPC e instâncias EC2 Ubuntu, instalar o docker e subir containers do Wordpress nas instâncias usando o RDS (como banco de dados), montar um diretório com Amazon EFS para usar como volume do container, criar um Auto-Scaling Group (para criar ou remover instâncias conforme o tráfego), um Load Balancer (para distribuir o tráfego entre os servidores), e configurar o Amazon CloudWatch para monitorar as intâncias EC2.
 
 ## #Tecnologias utilizadas
-> É necessário possuir uma conta na Amazon AWS e no Discord, ter noções básicas de HTML e possuir o VSCODE instalado na máquina.
+> > É necessário possuir: uma conta na Amazon AWS e no Discord e o VSCODE instalado na máquina.
 
 - Sistema Operacional da máquina utilizado durante o projeto: Windows 11.
 - Recursos Amazon AWS: VPC, Security Group, Subnets, Key Pair, Instance EC2 (Amazon Linux 2023 AMI, t2.micro), RDS, CloudWatch.
@@ -141,6 +141,29 @@ docker-compose up -d
 
 <img src="./sg/sg12.png">
 
-(criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
+### 4. Criando a instância RDS
+> O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS.
 
-> O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS. Ele fornece capacidade econômica e redimensionável para um banco de dados relacional padrão do setor e gerencia tarefas comuns de administração de banco de dados.
+4.1 Procurar e selecionar ***RDS*** no console da AWS.
+rds1
+
+4.2 Selecionar ***Databases*** e ***Create database***.
+rds2 e 3
+
+4.3 Selecionar ***Standard create*** e ***MySQL***.
+rds 4
+
+4.4 Selecionar ***Free tier*** e ***Single-AZ DB instance deployment (1 instance)***.
+rds 5
+
+4.5 Inserir o nome da instância RDS e nome do usuário do banco; selecionar ***Self managed***; inserir senha do usuário (a senha não pode conter caracteres especiais) e redigitá-la.
+> Guarde as credenciais do usuário em um local seguro.
+
+rds6
+
+4.6 Selecionar ***db.t3.micro*** e inserir 20.
+rds 7
+
+4.7
+
+(criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
