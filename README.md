@@ -93,7 +93,7 @@ docker-compose up -d
 <img src="./sg/sg7.png">
 
 3.8 Selecionar ***Add rule***, e inserir:Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
-> Essa regra de entrada vai permitir o acesso (apenas para a nossa marquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
+> Essa regra de entrada vai permitir o acesso (apenas para a nossa máquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
 
 3.9 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
 > Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
@@ -145,25 +145,64 @@ docker-compose up -d
 > O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS.
 
 4.1 Procurar e selecionar ***RDS*** no console da AWS.
-rds1
+
+<img src="./rds/rds1.png"></img>
 
 4.2 Selecionar ***Databases*** e ***Create database***.
-rds2 e 3
+
+<img src="./rds/rds2.png"></img>
+
+<img src="./rds/rds3.png"></img>
 
 4.3 Selecionar ***Standard create*** e ***MySQL***.
-rds 4
+
+<img src="./rds/rds4.png"></img>
 
 4.4 Selecionar ***Free tier*** e ***Single-AZ DB instance deployment (1 instance)***.
-rds 5
+
+<img src="./rds/rds5.png"></img>
 
 4.5 Inserir o nome da instância RDS e nome do usuário do banco; selecionar ***Self managed***; inserir senha do usuário (a senha não pode conter caracteres especiais) e redigitá-la.
 > Guarde as credenciais do usuário em um local seguro.
 
-rds6
+<img src="./rds/rds6.png"></img>
 
-4.6 Selecionar ***db.t3.micro*** e inserir 20.
-rds 7
+4.6 Selecionar ***db.t3.micro*** e inserir 20 (Allocated Storage).
 
-4.7
+<img src="./rds/rds7.png"></img>
+
+4.7 Selecionar ***Additional storage configuration***; desabilitar ***Enable storage autoscaling***; selecionar: ***Don’t connect to an EC2 compute resource***, a vpc que criamos e ***No***(Public access).
+
+<img src="./rds/rds8.png"></img>
+
+4.8 Selecionar: ***Choose existing***, somente a vpc que criamos e ***No preference***(Availability Zone). 
+
+<img src="./rds/rds9.png"></img>
+
+4.9 Selecionar ***Password authentication*** e ***Database Insights - Standard***.
+
+<img src="./rds/rds10.png"></img>
+
+4.10 Selecionar ***Additional configuration***; inserir nome do banco de dados; desabilitar ***Enable automated backups***, habilitar ***Enable auto minor version upgrade***.
+
+<img src="./rds/rds11.png"></img>
+
+4.11 Desabilitar ***Enable auto minor version upgrade*** e ***Enable deletion protection***; selecionar ***No preference*** e ***Create database***.
+
+<img src="./rds/rds12.png"></img>
+
+4.12 Selecionar ***Close***.
+
+<img src="./rds/rds12.png"></img>
+
+4.13 Selecionar a instância RDS.
+> O status da instância precisa ser igual a "Available" (é necessário aguardar alguns minutos e selecionar o botão "Refresh" para atualizar a página).
+
+<img src="./rds/rds13.png"></img>
+
+4.14 Selecionar ***Connectivity & security*** e copiar o endpoint do banco de dados.
+> Usaremos o endereço do endpoint do banco de dados para realizar a conexão entre as instâncias WordPress com o MySQL(dentro da variavel DB_HOST do arquivo "docker-compose.yml").
+
+<img src="./rds/rds14.png"></img>
 
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
