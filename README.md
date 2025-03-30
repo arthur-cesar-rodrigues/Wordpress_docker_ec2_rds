@@ -74,7 +74,7 @@ docker-compose up -d
 
 <img src="./sg/sg3.png">
 
-3.5 Informar o nome do seu Security Goup em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+3.5 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
 <img src="./sg/sg4.png">
 
@@ -110,3 +110,22 @@ docker-compose up -d
 3.13 Selecionar ***Save rules***.
 
 <img src="./sg/sg10.png">
+
+3.14 Selecionar ***Create security group***.
+> Agora iremos criar o security group do MySQL.
+
+<img src="./sg/sg3.png">
+
+3.15 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+
+<img src="./sg/sg11.png">
+
+3.16 Selecionar ***Delete*** (Outbound Rules).
+
+<img src="./sg/sg5.png">
+
+3.17 Selecionar ***Create security group***.
+
+<img src="./sg/sg6.png">
+
+(criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
