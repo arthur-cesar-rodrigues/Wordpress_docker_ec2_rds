@@ -193,17 +193,17 @@ docker-compose up -d
 
 4.12 Selecionar ***Close***.
 
-<img src="./rds/rds12.png"></img>
+<img src="./rds/rds13.png"></img>
 
 4.13 Selecionar a instância RDS.
 > O status da instância precisa ser igual a "Available" (é necessário aguardar alguns minutos e selecionar o botão "Refresh" para atualizar a página).
 
-<img src="./rds/rds13.png"></img>
+<img src="./rds/rds14.png"></img>
 
 4.14 Selecionar ***Connectivity & security*** e copiar o endpoint do banco de dados.
 > Usaremos o endereço do endpoint do banco de dados para realizar a conexão entre as instâncias WordPress com o MySQL(dentro da variavel DB_HOST do arquivo "docker-compose.yml").
 
-<img src="./rds/rds14.png"></img>
+<img src="./rds/rds15.png"></img>
 
 ### 5. Criando um sistema de arquivo (EFS)
 > O Amazon EFS fornece armazenamento de arquivos escalável para uso com o Amazon EC2. É possível usar um sistema de arquivos de EFS como uma fonte de dados comum para workloads e aplicações em execução em várias instâncias.
