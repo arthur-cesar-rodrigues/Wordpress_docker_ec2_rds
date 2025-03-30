@@ -17,6 +17,7 @@ Criar uma VPC e instâncias EC2 Ubuntu, instalar o docker e subir containers do 
 * Abrir o terminal do Ubuntu e digitar:
 
 <a href="local/docker-compose.yml">docker-compose</a>
+
 <a href="local/.env">env</a>
 
 ```
