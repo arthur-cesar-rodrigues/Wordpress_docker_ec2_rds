@@ -205,4 +205,49 @@ docker-compose up -d
 
 <img src="./rds/rds14.png"></img>
 
+### 5. Criando um sistema de arquivo (EFS)
+> O Amazon EFS fornece armazenamento de arquivos escalável para uso com o Amazon EC2. É possível usar um sistema de arquivos de EFS como uma fonte de dados comum para workloads e aplicações em execução em várias instâncias.
+
+5.1 Procurar e selecionar ***EFS*** no console da AWS.
+
+<img src="./efs/efs1.png"></img>
+
+5.2 Selecionar ***Create file system*** e ***Customize***.
+
+<img src="./efs/efs2.png"></img>
+
+<img src="./efs/efs3.png"></img>
+
+5.3 Inserir nome do sistema de arquivos; selecionar ***Regional***; desabilitar enable automatic backups; selecionar ***None*** (para todas opções do campo Lifecycle management); habilitar ***Enable encryption of data at rest***.  
+
+<img src="./efs/efs4.png"></img>
+
+5.4 Selecionar ***Bursting*** e ***Next***.
+
+<img src="./efs/efs5.png"></img>
+
+5.5 Selecionar a VPC que criamos.
+
+5.6 Selecionar: Availability zone: 1a; subnet privada 1; e o security group das instâncias Wordpress.
+
+5.7 Selecionar: Availability zone: 1b; subnet privada 2; e o security group das instâncias Wordpress.
+
+<img src="./efs/efs6.png"></img>
+
+5.8 Selecionar ***Next***, ***Next*** e ***Create***.
+> As configurações feitas nos tópicos 5.6 e 5.7 permitirão montarmos o sistema de arquivos dentro das instâncias Wordpress.
+
+5.9 Selecionar o File System criado.
+> O status do file system precisa ser igual a "Available" (é necessário aguardar alguns minutos e selecionar o botão "Refresh" para atualizar a página).
+
+<img src="./efs/efs7.png"></img>
+
+5.10 Selecionar ***Attach***.
+
+<img src="./efs/efs8.png"></img>
+
+5.11 Selecionar ***Mount via DNS***, copiar o comando (EFS nount helper).
+> Esse comando será usado para montar o sistema de arquivos que criamos dentro das instâncias EC2.
+<img src="./efs/efs9.png"></img>
+
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
