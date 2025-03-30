@@ -4,7 +4,7 @@
 Criar uma VPC e instâncias EC2 Ubuntu, instalar o docker e subir containers do Wordpress nas instâncias usando o RDS (como banco de dados), montar um diretório com Amazon EFS para usar como volume do container, criar um Auto-Scaling Group (para criar ou remover instâncias conforme o tráfego), um Load Balancer (para distribuir o tráfego entre os servidores), e configurar o Amazon CloudWatch para monitorar as intâncias EC2.
 
 ## #Tecnologias utilizadas
-> > É necessário possuir: uma conta na Amazon AWS e no Discord e o VSCODE instalado na máquina.
+> É necessário possuir: uma conta na Amazon AWS e no Discord e o VSCODE instalado na máquina.
 
 - Sistema Operacional da máquina utilizado durante o projeto: Windows 11.
 - Recursos Amazon AWS: VPC, Security Group, Subnets, Key Pair, Instance EC2 (Amazon Linux 2023 AMI, t2.micro), RDS, CloudWatch.
@@ -248,6 +248,7 @@ docker-compose up -d
 
 5.11 Selecionar ***Mount via DNS***, copiar o comando (EFS nount helper).
 > Esse comando será usado para montar o sistema de arquivos que criamos dentro das instâncias EC2.
+
 <img src="./efs/efs9.png"></img>
 
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
