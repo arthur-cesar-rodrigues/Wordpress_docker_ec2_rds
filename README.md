@@ -175,7 +175,7 @@ docker-compose up -d
 
 <img src="./rds/rds8.png"></img>
 
-4.8 Selecionar: ***Choose existing***, somente a vpc que criamos e ***No preference***(Availability Zone). 
+4.8 Selecionar: ***Choose existing***; o security group do database que foi criado (apenas ele deve estar habilitado); e ***No preference***(Availability Zone). 
 
 <img src="./rds/rds9.png"></img>
 
