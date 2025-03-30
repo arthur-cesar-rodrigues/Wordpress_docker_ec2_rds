@@ -39,7 +39,7 @@ docker-compose up -d
 
 <img src="./local/local1.png"></img>
 
-### 2. Criando uma VPC 
+### 2. Criando a VPC 
 
 2.1 Procurar e selecionar ***VPC*** no console da Amazon AWS.
 > A Amazon Virtual Private Cloud (VPC) é uma rede virtual isolada que possibilita usar recursos AWS nela, como as instâncias EC2.
@@ -59,9 +59,10 @@ docker-compose up -d
 
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-### 3. Criando uma instância RDS(MySQL)
+### 3. Criando o Security Group das instâncias EC2 e da instância RDS(MySQL)
+> O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-3.1 Criando e configurando o Security Group das instâncias
+3.1 Criando e configurando o Security Group das instâncias.
 
 3.2 Procurar e selecionar ***EC2*** no console da AWS.
 
@@ -129,4 +130,17 @@ docker-compose up -d
 
 <img src="./sg/sg6.png">
 
+3.18 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+
+<img src="./sg/sg7.png">
+
+3.19 Selecionar ***Add rule***, e inserir:Inserir: Type: MYSQL/Aurora; Source: Custom - selecionar o security group das intâncias EC2; Description: a descrição da sua regra SSH.
+> Essa regra de entrada vai permitir o acesso das instâncias Wordpress com a instâncias RDS(banco de dados) que criaremos.
+
+3.20 Selecionar ***Save rules***.
+
+<img src="./sg/sg12.png">
+
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
+
+> O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS. Ele fornece capacidade econômica e redimensionável para um banco de dados relacional padrão do setor e gerencia tarefas comuns de administração de banco de dados.
