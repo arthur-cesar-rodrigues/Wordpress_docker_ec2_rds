@@ -284,9 +284,9 @@ docker-compose up -d
 
 7.3 Infomar o nome da instância (Name), e selecionar: Quick Start: Amazon Linux (é o sistema operacional do servidor); AMI: Amazon Linux AMI; Architeture: 64 bits ou 32 bits (conforme a configuração da sua máquina); Instance Type: t2.micro (é o tipo da instância); Key pair: a chave que você criou.
 
+<img src="./inst/inst5.png">
 <img src="./inst/inst3.png">
 <img src="./inst/inst4.png">
-<img src="./inst/inst5.png">
 
 7.4 Selecionar ***Edit*** (Network settings).
 
