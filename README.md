@@ -225,7 +225,7 @@ docker-compose up -d
 <img src="./rds/rds14.png"></img>
 
 4.14 Selecionar ***Connectivity & security*** e copiar o endpoint do banco de dados.
-> Usaremos o endereço do endpoint do banco de dados para realizar a conexão entre as instâncias WordPress com o MySQL(dentro da variavel DB_HOST do arquivo "docker-compose.yml").
+> Usaremos o endereço do endpoint do banco de dados para realizar a conexão entre as instâncias WordPress com o MySQL(dentro da variavel WORDPRESS_DB_HOST do arquivo "docker-compose.yml").
 
 <img src="./rds/rds15.png"></img>
 
@@ -358,5 +358,32 @@ docker-compose up -d
 <img src="./connect/con6.png">
 <img src="./connect/con7.png">
 
+### 9. Configurando e acessando o container Wordpress
+
+<a href="./inst/docker-compose.yml">docker-compose.yml</a>
+
+<a href="./inst/.env">env</a>
+
+```
+sudo su -
+yum upgrade -y
+cd /
+yum install -y amazon-efs-utils
+chkconfig amazon-efs-mount-watchdog.service on
+service amazon-efs-mount-watchdog start
+yum install -y docker
+chkconfig docker on
+sudo service docker start
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+mkdir wordpress && cd wordpress
+mkdir compose && mkdir data
+(colar aqui o código para montagem com o efs (tópico 5.11), nesse laboratório a montagem foi feita no diretório data, você precisa estar dentro da pasta que está o diretório montado)
+cd compose && vi docker-compose.yml
+(colar o código do docker-compose.yml, e salvar e sair)
+vi .env 
+(colar o arquivo .env aqui, salvar e sair)
+docker-compose up
+```
 
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
