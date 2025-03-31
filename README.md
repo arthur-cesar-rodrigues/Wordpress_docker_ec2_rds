@@ -246,9 +246,70 @@ docker-compose up -d
 
 <img src="./efs/efs8.png"></img>
 
-5.11 Selecionar ***Mount via DNS***, copiar o comando (EFS nount helper).
+5.11 Selecionar ***Mount via DNS***, copiar o comando (EFS mount helper).
 > Esse comando será usado para montar o sistema de arquivos que criamos dentro das instâncias EC2.
 
 <img src="./efs/efs9.png"></img>
+
+### 6. Criando uma Key Pair (par de chaves)
+> Criaremos um par de chave ".pem" para conectar na instância EC2 Amazon Linux pelo VSCode (GitBash) via conexão SSH (conforme a regra do security group).
+
+3.1 Selecionar ***Key Pairs***.
+> É necessário estar na página EC2 da Amazon AWS.
+
+<img src="./key/key1.png">
+
+3.2 Selecionar ***Create Key Pair***.
+
+<img src="./key/key2.png">
+
+3.3 Inserir o nome do seu par de chaves (Name); selecionar o tipo da chave: RSA (Key pair type); selecionar o formato da chave: .pem (Private key..).
+
+3.4 Selecionar ***Create key pair***.
+> Após criar o par de chaves, irá ser feito seu download, se atente ao diretório em que a chave está alocada, pois iremos usar elas no processo de conectar na instância.
+
+<img src="./key/key3.png">
+
+### 7. Criando a instância EC2 Amazon Linux
+> Uma instância EC2 é como se fosse uma VM (virtual machine) dentro da Amazon AWS, ou seja, é o seu servidor. Para realizar as configurações abaixo é necessário estar na página ***EC2***.
+
+4.1 Selecionar ***Instances***.
+
+<img src="./inst/inst1.png">
+
+4.2 Selecionar ***Launch Instances***.
+> As configurações de: AMI (Sistema Operacional) e sua versão; tipo de instância; tamanho do volume EBS (armazenamento) e seu tipo  foram escolhidas as opções "Free Tier eligible" (são gratuitas). Porém o uso da instância ao longo do tempo é cobrado, após a prática do projeto a instância foi deletada ("Terminate Instance").
+
+<img src="./inst/inst2.png">
+
+4.3 Infomar o nome da instância (Name), e selecionar: Quick Start: Amazon Linux (é o sistema operacional do servidor); AMI: Amazon Linux AMI; Architeture: 64 bits ou 32 bits (conforme a configuração da sua máquina); Instance Type: t2.micro (é o tipo da instância); Key pair: a chave que você criou.
+
+<img src="./inst/inst3.png">
+<img src="./inst/inst4.png">
+<img src="./inst/inst5.png">
+
+4.4 Selecionar ***Edit*** (Network settings).
+
+<img src="./inst/inst6.png">
+
+4.5 Selecionar: VPC: VPC criada; Subnet: qualquer subnet pública; Auto-assign public IP: Enable (a intância vai possuir um IP público e isso vai permitir que qualquer ip consiga acessar a página do Wordpress).
+
+<img src="./inst/inst7.png">
+
+4.6 Selecionar ***Select existing security group***.
+
+<img src="./inst/inst8.png">
+
+4.7 Selecionar o security group criado anteriormente (Commom security groups).
+
+<img src="./inst/inst9.png">
+
+4.8 Inserir o tamanho em GB do armazanemento do seu servidor (1x) e tipo dele (gp3).
+
+<img src="./inst/inst10.png">
+
+4.10 Selecionar ***Launch instance***.
+
+<img src="./inst/inst11.png">
 
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
