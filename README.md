@@ -324,7 +324,6 @@ docker-compose up -d
 <img src="./connect/con2.png">
 
 8.3 Selecionar ***SSH Client***, e copiar "chmod..." (SSH Client) e colar no terminal do VSCode (GitBash) + Enter.
-> [!WARNING]
 > Para realizar esse comando, é necessário estar dentro do diretório onde foi feito o download da chave.
 
 <img src="./connect/con4.png">
