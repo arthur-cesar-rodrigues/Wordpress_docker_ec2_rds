@@ -312,4 +312,28 @@ docker-compose up -d
 
 <img src="./inst/inst11.png">
 
+### 8. Conectando na instância
+> Para conectar em uma instância seu "status check" precisa ser "2/2 checks passed".
+
+8.1 Selecionar ***Instances***.
+  
+<img src="./connect/con1.png">
+
+8.2 Selecionar instância criada e ***Connect***.
+
+<img src="./connect/con2.png">
+
+8.3 Selecionar ***SSH Client***, e copiar "chmod..." (SSH Client) e colar no terminal do VSCode (GitBash) + Enter.
+> [!WARNING]
+> Para realizar esse comando, é necessário estar dentro do diretório onde foi feito o download da chave.
+
+<img src="./connect/con4.png">
+<img src="./connect/con5.png">
+
+8.4 Copiar "ssh -i..." (SSH Client) e colar no Git Bash + Enter + yes + Enter. 
+
+<img src="./connect/con6.png">
+<img src="./connect/con7.png">
+
+
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
