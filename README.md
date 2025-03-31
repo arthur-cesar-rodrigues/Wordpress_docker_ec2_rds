@@ -364,6 +364,8 @@ docker-compose up -d
 
 <a href="./inst/.env">env</a>
 
+* Executar os seguintes comandos no bash da instância:
+
 ```
 sudo su -
 yum upgrade -y
