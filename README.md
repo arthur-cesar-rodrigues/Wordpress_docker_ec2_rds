@@ -59,40 +59,38 @@ docker-compose up -d
 
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-### 3. Criando o Security Group das instâncias EC2 e da instância RDS(MySQL)
+### 3. Criando o Security Group das instâncias EC2, e da instância RDS (MySQL) e do sistema de arquivos (EFS)
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-3.1 Criando e configurando o Security Group das instâncias.
-
-3.2 Procurar e selecionar ***EC2*** no console da AWS.
-
+3.1 Procurar e selecionar ***EC2*** no console da AWS.
+> Criando Security Group das instâncias EC2 (Wordpress).
 <img src="./sg/sg1.png">
 
-3.3 Selecionar ***Security Groups***. 
+3.2 Selecionar ***Security Groups***. 
 
 <img src="./sg/sg2.png">
 
-3.4 Selecionar ***Create security group***.
+3.3 Selecionar ***Create security group***.
 
 <img src="./sg/sg3.png">
 
-3.5 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+3.4 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
 <img src="./sg/sg4.png">
 
-3.6 Selecionar ***Delete*** (Outbound Rules).
+3.5 Selecionar ***Delete*** (Outbound Rules).
 
 <img src="./sg/sg5.png">
 
-3.7 Selecionar ***Create security group***.
+3.6 Selecionar ***Create security group***.
 
 <img src="./sg/sg6.png">
 
-3.8 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+3.7 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
 
 <img src="./sg/sg7.png">
 
-3.8 Selecionar ***Add rule***, e inserir:Inserir: Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
+3.8 Selecionar ***Add rule***, e inserir:  Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso (apenas para a nossa máquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
 
 3.9 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
@@ -114,7 +112,7 @@ docker-compose up -d
 <img src="./sg/sg10.png">
 
 3.14 Selecionar ***Create security group***.
-> Agora iremos criar o security group do MySQL.
+> Criando o security group do MySQL (RDS).
 
 <img src="./sg/sg3.png">
 
@@ -134,12 +132,38 @@ docker-compose up -d
 
 <img src="./sg/sg7.png">
 
-3.19 Selecionar ***Add rule***, e inserir:Inserir: Type: MYSQL/Aurora; Source: Custom - selecionar o security group das intâncias EC2; Description: a descrição da sua regra SSH.
+3.19 Selecionar ***Add rule***, e inserir: Type: MYSQL/Aurora; Source: Custom - selecionar o security group das intâncias EC2; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso das instâncias Wordpress com a instâncias RDS(banco de dados) que criaremos.
 
 3.20 Selecionar ***Save rules***.
 
 <img src="./sg/sg12.png">
+
+3.21 Selecionar ***Create security group***.
+> Criando o security group do sistema de arquivos (EFS).
+
+<img src="./sg/sg3.png">
+
+3.22 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+
+<img src="./sg/sg13.png">
+
+3.23 Selecionar ***Delete*** (Outbound Rules).
+
+<img src="./sg/sg5.png">
+
+3.24 Selecionar ***Create security group***.
+
+<img src="./sg/sg6.png">
+
+3.25 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+
+<img src="./sg/sg7.png">
+
+3.26 Selecionar ***Add rule***, e inserir: Type: NFS; Source: Custom; Description: a descrição da sua regra NFS.
+> Essa regra de entrada vai permitir o acesso das instâncias EC2 com o sistema de arquivos (EFS). 
+
+<img src="./sg/sg14.png">
 
 ### 4. Criando a instância RDS
 > O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS.
@@ -228,9 +252,9 @@ docker-compose up -d
 
 5.5 Selecionar a VPC que criamos.
 
-5.6 Selecionar: Availability zone: 1a; subnet privada 1; e o security group das instâncias Wordpress.
+5.6 Selecionar: Availability zone: 1a; subnet pública 1; e o security group do efs.
 
-5.7 Selecionar: Availability zone: 1b; subnet privada 2; e o security group das instâncias Wordpress.
+5.7 Selecionar: Availability zone: 1b; subnet pública 2; e o security group do efs.
 
 <img src="./efs/efs6.png"></img>
 
