@@ -342,9 +342,11 @@ docker-compose up -d
     
 - 7.9.2 Selecionar ***Choose file*** (e selecionar seu script de automatização) ou colar na caixa de texto o script.
 
+<img src="./userdata/userdata2.png">
+
 7.10 Selecionar ***Launch instance***.
 
-<img src="./inst/.png">
+<img src="./inst/ins11.png">
 
 ### 8. Conectando na instância
 > Para conectar em uma instância seu "status check" precisa ser "2/2 checks passed".
