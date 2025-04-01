@@ -332,10 +332,11 @@ docker-compose up -d
 
 <img src="./inst/inst10.png">
 
-7.9 Inserindo Scripts no User Data (OPCIONAL)
-> [!NOTE]
-> O user data é um campo que fica dentro da página de criação de instâncias EC2 que permite inserir scripts para automatização que serão executados quando iniciarmos a instância que subiremos pela primeira vez.
-    
+7.9 Inserindo Script no User Data (OPCIONAL)
+> O user data é um campo que fica dentro da página de criação de instâncias EC2 que permite inserir scripts para automatização que serão executados quando iniciarmos a instância que subiremos pela primeira vez. Após essa etapa, pule os tópicos 8 e 9.
+
+<a href="./userdata/user-data.sh">user-data</a>
+
 - 7.9.1 Selecionar ***Advanced Details***.
         
 <img src="./userdata/userdata1.png">
