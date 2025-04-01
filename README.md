@@ -388,4 +388,14 @@ vi .env
 docker-compose up
 ```
 
+### 10. Acessando do servidor Wordpress
+
+10.1 Selecionar instância no Console da Amazon AWS; selecionar ***Details***; copiar o IP público da instância (Public IPv4 address).
+
+<img src="./access/access1.png">
+
+10.2 Digitar no navegador http://ip_da_instancia:8080
+
+<img src="./access/access2.png">
+
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
