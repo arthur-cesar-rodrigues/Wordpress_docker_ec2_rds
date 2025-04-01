@@ -332,9 +332,19 @@ docker-compose up -d
 
 <img src="./inst/inst10.png">
 
-7.9 Selecionar ***Launch instance***.
+7.9 Inserindo Scripts no User Data (OPCIONAL)
+> [!NOTE]
+> O user data é um campo que fica dentro da página de criação de instâncias EC2 que permite inserir scripts para automatização que serão executados quando iniciarmos a instância que subiremos pela primeira vez.
+    
+- 7.9.1 Selecionar ***Advanced Details***.
+        
+<img src="./userdata/userdata1.png">
+    
+- 7.9.2 Selecionar ***Choose file*** (e selecionar seu script de automatização) ou colar na caixa de texto o script.
 
-<img src="./inst/inst11.png">
+7.10 Selecionar ***Launch instance***.
+
+<img src="./inst/.png">
 
 ### 8. Conectando na instância
 > Para conectar em uma instância seu "status check" precisa ser "2/2 checks passed".
@@ -388,7 +398,7 @@ vi .env
 docker-compose up
 ```
 
-### 10. Acessando do servidor Wordpress
+### 10. Acessando o servidor Wordpress
 
 10.1 Selecionar instância no Console da Amazon AWS; selecionar ***Details***; copiar o IP público da instância (Public IPv4 address).
 
