@@ -480,7 +480,7 @@ tp4
 
 <img src="./clwatch/wat9.png">
 
-### 11. 0 Teste final - acessando o Wordpress pelo DNS do CLB
+### 10. Teste final - acessando o Wordpress pelo DNS do CLB
 
 * Copiar e colar DNS do load balance no navegador.
 
