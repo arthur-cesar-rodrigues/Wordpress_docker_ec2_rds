@@ -63,7 +63,7 @@ docker-compose up -d
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
 3.1 Procurar e selecionar ***EC2*** no console da AWS.
-> Criando Security Group das instâncias EC2 (Wordpress).
+
 <img src="./sg/sg1.png">
 
 3.2 Selecionar ***Security Groups***. 
@@ -71,6 +71,7 @@ docker-compose up -d
 <img src="./sg/sg2.png">
 
 3.3 Selecionar ***Create security group***.
+> Criando Security Group das instâncias EC2 (Wordpress).
 
 <img src="./sg/sg3.png">
 
@@ -85,31 +86,6 @@ docker-compose up -d
 3.6 Selecionar ***Create security group***.
 
 <img src="./sg/sg6.png">
-
-<!-- 3.7 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
-
-<img src="./sg/sg7.png">
-
-3.8 Selecionar ***Add rule***, e inserir:  Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
-> Essa regra de entrada vai permitir o acesso (apenas para a nossa máquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
-
-3.9 Selecionar ***Add rule***, e inserir: Type: HTTP; Port: 80; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
-> Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
-
-3.10 Selecionar ***Save rules***.
-
-<img src="./sg/sg8.png">
-
-3.11 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
-
-<img src="./sg/sg9.png">
-
-3.12 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
-> Essa regra de saída vai permitir que a instância EC2 que criaremos realizar qualquer tipo de conexão com IPs da versão 4 (vai permitir o acesso de internet para a instância e o acesso com a instância RDS que criaremos (MySQL)).
-
-3.13 Selecionar ***Save rules***. -->
-
-<!-- <img src="./sg/sg10.png"> -->
 
 3.7 Selecionar ***Create security group***.
 > Criando o security group do MySQL (RDS).
@@ -324,9 +300,9 @@ editar sgec2 wordpress
 
 5.5 Selecionar a VPC que criamos.
 
-5.6 Selecionar: Availability zone: 1a; subnet pública 1; e o security group do efs.
+5.6 Selecionar: Availability zone: 1a; subnet privada 1; e o security group do efs.
 
-5.7 Selecionar: Availability zone: 1b; subnet pública 2; e o security group do efs.
+5.7 Selecionar: Availability zone: 1b; subnet privada 2; e o security group do efs.
 
 <img src="./efs/efs6.png"></img>
 
@@ -347,24 +323,12 @@ editar sgec2 wordpress
 
 <img src="./efs/efs9.png"></img>
 
-### 6. Criando uma Key Pair (par de chaves)
-> Criaremos um par de chave ".pem" para conectar na instância EC2 Amazon Linux pelo VSCode (GitBash) via conexão SSH (conforme a regra do security group).
+### 6. Criando o Launch Template
 
-6.1 Selecionar ***Key Pairs***.
-> É necessário estar na página EC2 da Amazon AWS.
+6.1 Procurar e selecionar ***EC2*** no console da AWS.
 
-<img src="./key/key1.png">
+<img src="./sg/sg1.png">
 
-6.2 Selecionar ***Create Key Pair***.
-
-<img src="./key/key2.png">
-
-6.3 Inserir o nome do seu par de chaves (Name); selecionar o tipo da chave: RSA (Key pair type); selecionar o formato da chave: .pem (Private key..).
-
-6.4 Selecionar ***Create key pair***.
-> Após criar o par de chaves, irá ser feito seu download, se atente ao diretório em que a chave está alocada, pois iremos usar elas no processo de conectar na instância.
-
-<img src="./key/key3.png">
 
 ### 7. Criando a instância EC2 Amazon Linux
 > Uma instância EC2 é como se fosse uma VM (virtual machine) dentro da Amazon AWS, ou seja, é o seu servidor. Para realizar as configurações abaixo é necessário estar na página ***EC2***.
