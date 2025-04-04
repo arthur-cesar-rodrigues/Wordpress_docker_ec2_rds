@@ -227,14 +227,14 @@ docker-compose up -d
 
 3.36 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
 
-<img src="./sg/sg19.png">
+<img src="./sg/sg9.png">
 
 3.37 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
 > Essa regra de saída vai permitir que a instância EC2 que criaremos possa se conectar com a internet.
 
 3.38 Selecionar ***Save rules***.
 
-<img src="./sg/sg20.png">
+<img src="./sg/sg10.png">
 
 editar sgec2 wordpress
 ### 4. Criando a instância RDS
