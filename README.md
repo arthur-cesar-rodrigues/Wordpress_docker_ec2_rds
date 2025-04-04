@@ -437,18 +437,18 @@ tp4
 
 9.2 Selecionar ***Auto Scaling Groups*** e o auto scaling group criado.
 
-<img src="./clwatch/wat1.png.png">
+<img src="./clwatch/wat1.png">
 
 9.3 Selecionar ***Automatic scaling*** e ***Create dynamic scaling policy***.
-<img src="./clwatch/wat2.png.png">
+<img src="./clwatch/wat2.png">
 
 9.4 Policy type: Simple Scaling; inserir nome da politíca de scaling; add 1 capacity units; selecionar ***Create***.
 > Essa política vai adicionar uma instancia ao auto scaling group.
 
-<img src="./clwatch/wat3.png.png">
+<img src="./clwatch/wat3.png">
 
 9.5 Procurar e selecionar ***CloudWatch***.
-<img src="./clwatch/wat4.png.png">
+<img src="./clwatch/wat4.png">
 
 9.6 Selecionar ***Alarms***, ***In alarm***, ***Create alarm*** e ***Select Metric***.
 
@@ -461,24 +461,24 @@ tp4
 9.10 Selecionar ***Remove***(Notification).
 
 9.11 Selecionar ***Add Auto Scaling action***; ***In alarm***; ***EC2 Auto Scaling group***; selecionar o grupo de auto scaling criado anteriormente e ***Next***.
-<img src="./clwatch/wat5.png.png">
+<img src="./clwatch/wat5.png">
 
 9.12 Inserir nome do alarme CloudWatch e selecionar 2X ***Next*** e selecionar ***Create alarm***.
 
 9.13 Selecionar o ícone do power shell e executar o comando `aws cloudwatch set-alarm-state --alarm-name "nome_alarme" --state-value ALARM --state-reason "motivo_teste"`.
 > Esse comando força o CloudWatch disparar o alarme (indepedente se a métrica esteja sendo atendida, como consequencia o auto scaling group executará a ação configurada na política personalizada).
 
-<img src="./clwatch/wat6.png.png">
+<img src="./clwatch/wat6.png">
 
-<img src="./clwatch/wat7.png.png">
+<img src="./clwatch/wat7.png">
 
 * O alarme foi disparado:
 
-<img src="./clwatch/wat8.png.png">
+<img src="./clwatch/wat8.png">
 
 * Uma terceira instância foi criada e esta sendo inicializada, conforme a política de scaling.
 
-<img src="./clwatch/wat9.png.png">
+<img src="./clwatch/wat9.png">
 
 ### 11. 0 Teste final - acessando o Wordpress pelo DNS do CLB
 
