@@ -50,7 +50,7 @@ docker-compose up -d
 
 <img src="./vpc/vpc2.png">
 
-2.3 Selecionar ***VPC and More***; habilitar Auto-generate e inserir o nome de sua VPC; Number of public subnets: 2 (quantidade de subnets públicas da VPC); Number of private subnets: 2 (quantidade de subnets privadas da VPC); selecionar Create VPC.
+2.3 Selecionar ***VPC and More***; habilitar Auto-generate e inserir o nome de sua VPC; Number of public subnets: 2 (quantidade de subnets públicas da VPC); Number of private subnets: 2 (quantidade de subnets privadas da VPC); selecionar ***In 1 AZ*** e ***Create VPC***.
 > As demais configurações não alteramos.
 
 <img src="./vpc/vpc3.png">
@@ -59,7 +59,7 @@ docker-compose up -d
 
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
-### 3. Criando o Security Group das instâncias EC2, e da instância RDS (MySQL) e do sistema de arquivos (EFS)
+### 3. Criando o Security Group das instâncias EC2, e da instância RDS (MySQL) e do sistema de arquivos (EFS), balanceador de carga (CLB)
 > O security group define o tráfego dos nossos recursos AWS (quem e quais conexões e portas são permitidas, similiar a um firewall).
 
 3.1 Procurar e selecionar ***EC2*** no console da AWS.
@@ -86,14 +86,14 @@ docker-compose up -d
 
 <img src="./sg/sg6.png">
 
-3.7 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+<!-- 3.7 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
 
 <img src="./sg/sg7.png">
 
 3.8 Selecionar ***Add rule***, e inserir:  Type: SSH; Source: My IP; Description: a descrição da sua regra SSH.
 > Essa regra de entrada vai permitir o acesso (apenas para a nossa máquina) da instância EC2 Amazon Linux que criarmos pelo VSCode (usando uma par de chaves). 
 
-3.9 Selecionar ***Add rule***, e inserir: Type: Custom TCP; Port: 8080; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
+3.9 Selecionar ***Add rule***, e inserir: Type: HTTP; Port: 80; Source: Anywhere-IPv4; Description: a descrição da sua regra HTTP.
 > Essa regra de entrada vai permitir a conexão de qualquer máquina com a instância EC2 Amazon Linux que criarmos pelo VSCode (isso possibilitará o acesso de outras máquinas a página do Wordpress).
 
 3.10 Selecionar ***Save rules***.
@@ -107,18 +107,46 @@ docker-compose up -d
 3.12 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
 > Essa regra de saída vai permitir que a instância EC2 que criaremos realizar qualquer tipo de conexão com IPs da versão 4 (vai permitir o acesso de internet para a instância e o acesso com a instância RDS que criaremos (MySQL)).
 
+3.13 Selecionar ***Save rules***. -->
+
+<!-- <img src="./sg/sg10.png"> -->
+
+3.7 Selecionar ***Create security group***.
+> Criando o security group do MySQL (RDS).
+
+<img src="./sg/sg3.png">
+
+3.8 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
+
+<img src="./sg/sg11.png">
+
+3.9 Selecionar ***Delete*** (Outbound Rules).
+
+<img src="./sg/sg5.png">
+
+3.10 Selecionar ***Create security group***.
+
+<img src="./sg/sg6.png">
+
+3.11 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+
+<img src="./sg/sg7.png">
+
+3.12 Selecionar ***Add rule***, e inserir: Type: MYSQL/Aurora; Source: Custom - selecionar o security group das intâncias EC2; Description: a descrição da sua regra MySQL.
+> Essa regra de entrada vai permitir o acesso das instâncias Wordpress com a instâncias RDS(banco de dados) que criaremos.
+
 3.13 Selecionar ***Save rules***.
 
-<img src="./sg/sg10.png">
+<img src="./sg/sg12.png">
 
 3.14 Selecionar ***Create security group***.
-> Criando o security group do MySQL (RDS).
+> Criando o security group do sistema de arquivos (EFS).
 
 <img src="./sg/sg3.png">
 
 3.15 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
-<img src="./sg/sg11.png">
+<img src="./sg/sg13.png">
 
 3.16 Selecionar ***Delete*** (Outbound Rules).
 
@@ -128,25 +156,25 @@ docker-compose up -d
 
 <img src="./sg/sg6.png">
 
-3.18 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+3.17 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
 
 <img src="./sg/sg7.png">
 
-3.19 Selecionar ***Add rule***, e inserir: Type: MYSQL/Aurora; Source: Custom - selecionar o security group das intâncias EC2; Description: a descrição da sua regra SSH.
-> Essa regra de entrada vai permitir o acesso das instâncias Wordpress com a instâncias RDS(banco de dados) que criaremos.
+3.19 Selecionar ***Add rule***, e inserir: Type: NFS; Source: Custom; Description: a descrição da sua regra NFS.
+> Essa regra de entrada vai permitir o acesso das instâncias EC2 com o sistema de arquivos (EFS). 
 
 3.20 Selecionar ***Save rules***.
 
-<img src="./sg/sg12.png">
+<img src="./sg/sg14.png">
 
 3.21 Selecionar ***Create security group***.
-> Criando o security group do sistema de arquivos (EFS).
+> Criando o security group do balanceador de carga (Classic Load Balancer).
 
 <img src="./sg/sg3.png">
 
 3.22 Informar o nome do seu Security Group em Security group name; inserir a descrição do seu Security Group em Description; selecionar a VPC que foi criada anteriormente.
 
-<img src="./sg/sg13.png">
+<img src="./sg/sg15.png"> 
 
 3.23 Selecionar ***Delete*** (Outbound Rules).
 
@@ -160,11 +188,55 @@ docker-compose up -d
 
 <img src="./sg/sg7.png">
 
-3.26 Selecionar ***Add rule***, e inserir: Type: NFS; Source: Custom; Description: a descrição da sua regra NFS.
-> Essa regra de entrada vai permitir o acesso das instâncias EC2 com o sistema de arquivos (EFS). 
+3.26 Selecionar ***Add rule***, e inserir:  Type: HTTP; Source: Anywhere ipv4; Description: a descrição da sua regra clb.
+> Essa regra de entrada vai permitir o acesso HTTP de qualquer máquina com o nosso balanceador de carga.
 
-<img src="./sg/sg14.png">
+3.27 Selecionar ***Save rules***.
 
+<img src="./sg/sg16.png">
+
+3.28 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
+
+<img src="./sg/sg9.png">
+
+3.29 Selecionar ***Add rule***, e inserir: Type: HTTP; Destination: Custom - selecionar o security group das instâncias ec2; Description: a descrição da sua regra de saída.
+> Essa regra de saída vai permitir que o load balancer crie a conexão entre a rede externa com os servidores Wordpress.
+
+3.30 Selecionar ***Save rules***. -->
+
+<img src="./sg/sg17.png">
+
+3.31 Selecionar ***Security Groups***. 
+
+<img src="./sg/sg2.png">
+
+3.32 Selecionar security group das instâncias EC2.
+
+<img src="./sg/sg2.png">
+
+3.33 Selecionar: ***Inbound rules***; ***Edit Inbound Rules***.
+
+<img src="./sg/sg7.png">
+
+3.34 Selecionar ***Add rule***, e inserir:  Type: HTTP; Source: Custom - security group do load balancer; Description: a descrição da sua regra de entrada.
+> Essa regra de entrada vai permitir o acesso HTTP do load balancer com as instâncias Wordpress. 
+
+3.35 Selecionar ***Save rules***.
+
+<img src="./sg/sg8.png">mudar
+
+3.36 Selecionar: ***Outbound rules***; ***Edit Outbound Rules***.
+
+<img src="./sg/sg19.png">
+
+3.37 Selecionar ***Add rule***, e inserir: Type: All traffic; Destination: Anywhere-IPv4; Description: a descrição da sua regra de saída.
+> Essa regra de saída vai permitir que a instância EC2 que criaremos possa se conectar com a internet.
+
+3.38 Selecionar ***Save rules***.
+
+<img src="./sg/sg20.png">
+
+editar sgec2 wordpress
 ### 4. Criando a instância RDS
 > O Amazon Relational Database Service (Amazon RDS) é um serviço da Web que facilita a configuração, a operação e escalabilidade de um banco de dados relacional na Nuvem AWS.
 
@@ -347,7 +419,7 @@ docker-compose up -d
 
 7.10 Selecionar ***Launch instance***.
 
-<img src="./inst/ins11.png">
+<img src="./inst/inst11.png">
 
 ### 8. Conectando na instância
 > Para conectar em uma instância seu "status check" precisa ser "2/2 checks passed".
@@ -407,8 +479,10 @@ docker-compose up
 
 <img src="./access/access1.png">
 
-10.2 Digitar no navegador http://ip_da_instancia:8080
+10.2 Digitar no navegador http://ip_da_instancia:80
 
 <img src="./access/access2.png">
 
 (criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
+
+(criar uma launch template, criar um auto scaling group, criar classic load balancer, criar metrica/monitoramento clooud watcch )
