@@ -8,7 +8,7 @@ Criar uma VPC e instâncias EC2 Ubuntu, instalar o docker e subir containers do 
 
 - Sistema Operacional da máquina utilizado durante o projeto: Windows 11.
 - Recursos Amazon AWS: VPC, Security Group, Subnets, Key Pair, Instance EC2 (Amazon Linux 2023 AMI, t2.micro), RDS, CloudWatch.
-- Docker e Docker Compose (coloca a versão aqui depois).
+- Docker e Docker Compose.
 - VSCode (GitBash - terminal).
 
 ### 1. Criando um container Wordpress local
@@ -323,130 +323,175 @@ editar sgec2 wordpress
 
 <img src="./efs/efs9.png"></img>
 
-### 6. Criando o Launch Template
+### 6. Criando o Launch Template Wordpress
+> Launch template é basicamente um modelo pronto usado para criar instâncias EC2.
 
 6.1 Procurar e selecionar ***EC2*** no console da AWS.
 
 <img src="./sg/sg1.png">
 
+6.2 Selecionar ***Launch Template*** e ***Create Launch Template***.
+<img src="./tp/tp1.png">
 
-### 7. Criando a instância EC2 Amazon Linux
-> Uma instância EC2 é como se fosse uma VM (virtual machine) dentro da Amazon AWS, ou seja, é o seu servidor. Para realizar as configurações abaixo é necessário estar na página ***EC2***.
+6.3 Inserir o nome do launch template e sua descrição, habilitar "Provide guidance...".
 
-7.1 Selecionar ***Instances***.
+<img src="./tp/tp2.png">
 
-<img src="./inst/inst1.png">
+6.4 Selecionar: Quick Start: Amazon Linux (é o sistema operacional do servidor); AMI: Amazon Linux AMI; Architeture: 64 bits ou 32 bits; Instance Type: t2.micro (é o tipo da instância).
 
-7.2 Selecionar ***Launch Instances***.
-> As configurações de: AMI (Sistema Operacional) e sua versão; tipo de instância; tamanho do volume EBS (armazenamento) e seu tipo  foram escolhidas as opções "Free Tier eligible" (são gratuitas). Porém o uso da instância ao longo do tempo é cobrado, após a prática do projeto a instância foi deletada ("Terminate Instance").
+<img src="./tp/tp3.png">
 
-<img src="./inst/inst2.png">
+6.5 Selecionar ***Select existing security group*** e o security group das instâncias.
+tp4
 
-7.3 Infomar o nome da instância (Name), e selecionar: Quick Start: Amazon Linux (é o sistema operacional do servidor); AMI: Amazon Linux AMI; Architeture: 64 bits ou 32 bits (conforme a configuração da sua máquina); Instance Type: t2.micro (é o tipo da instância); Key pair: a chave que você criou.
-
-<img src="./inst/inst5.png">
-<img src="./inst/inst3.png">
-<img src="./inst/inst4.png">
-
-7.4 Selecionar ***Edit*** (Network settings).
-
-<img src="./inst/inst6.png">
-
-7.5 Selecionar: VPC: VPC criada; Subnet: qualquer subnet pública; Auto-assign public IP: Enable (a intância vai possuir um IP público e isso vai permitir que qualquer ip consiga acessar a página do Wordpress).
-
-<img src="./inst/inst7.png">
-
-7.6 Selecionar ***Select existing security group***.
-
-<img src="./inst/inst8.png">
-
-7.7 Selecionar o security group criado anteriormente (Commom security groups).
-
-<img src="./inst/inst9.png">
-
-7.8 Inserir o tamanho em GB do armazanemento do seu servidor (1x) e tipo dele (gp3).
-
-<img src="./inst/inst10.png">
-
-7.9 Inserindo Script no User Data (OPCIONAL)
-> O user data é um campo que fica dentro da página de criação de instâncias EC2 que permite inserir scripts para automatização que serão executados quando iniciarmos a instância que subiremos pela primeira vez. Após essa etapa, pule os tópicos 8 e 9.
-
-<a href="./userdata/user-data.sh">user-data</a>
-
-- 7.9.1 Selecionar ***Advanced Details***.
+6.6 Selecionar ***Advanced Details***.
         
 <img src="./userdata/userdata1.png">
+
+<a href="./userdata/user-data.sh">código user data</a>
     
-- 7.9.2 Selecionar ***Choose file*** (e selecionar seu script de automatização) ou colar na caixa de texto o script.
+6.7 Selecionar ***Choose file*** (e selecionar seu script de automatização) ou colar na caixa de texto o script e ***Create launch template***.
 
-<img src="./userdata/userdata2.png">
+<img src="./tp/tp5.png">
 
-7.10 Selecionar ***Launch instance***.
+### 7. Criando o balanceador de carga
 
-<img src="./inst/inst11.png">
+7.1 Procurar e selecionar ***EC2*** no console da AWS.
 
-### 8. Conectando na instância
-> Para conectar em uma instância seu "status check" precisa ser "2/2 checks passed".
+<img src="./sg/sg1.png">
 
-8.1 Selecionar ***Instances***.
-  
-<img src="./connect/con1.png">
+7.2 Selecionar ***Load Balancers*** e ***Create load balancer***.
 
-8.2 Selecionar instância criada e ***Connect***.
+<img src="./clb/cl1.png">
 
-<img src="./connect/con2.png">
+7.3 Selecionar ***Classic Load Balancer - previous generation*** e ***Create***.
 
-8.3 Selecionar ***SSH Client***, e copiar "chmod..." (SSH Client) e colar no terminal do VSCode (GitBash) + Enter.
-> Para realizar esse comando, é necessário estar dentro do diretório onde foi feito o download da chave.
+<img src="./clb/cl2.png">
 
-<img src="./connect/con4.png">
-<img src="./connect/con5.png">
+7.4 Inserir nome do CLB (classic load balancer); selecionar ***Internet Facing*** e a Vpc que criamos para o laboratório.
 
-8.4 Copiar "ssh -i..." (SSH Client) e colar no Git Bash + Enter + yes + Enter. 
+<img src="./clb/cl3.png">
 
-<img src="./connect/con6.png">
-<img src="./connect/con7.png">
+7.5 Habilitar todas as AZs disponíveis (1-a e 1-b) e selecionar as subnets públicas 1 e 2.
 
-### 9. Configurando e acessando o container Wordpress
+<img src="./clb/cl4.png">
 
-<a href="./inst/docker-compose.yml">docker-compose.yml</a>
+7.6 Selecionar o security group do clb e inserir o caminho do health check: `/wp-admin/install.php.`
 
-<a href="./inst/.env">env</a>
+<img src="./clb/cl5.png">
 
-* Executar os seguintes comandos no bash da instância:
+7.7 Selecionar ***Create load balancer***.
 
-```
-sudo su -
-yum upgrade -y
-cd /
-yum install -y amazon-efs-utils
-chkconfig amazon-efs-mount-watchdog.service on
-service amazon-efs-mount-watchdog start
-yum install -y docker
-chkconfig docker on
-sudo service docker start
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-mkdir wordpress && cd wordpress
-mkdir compose && mkdir data
-(colar aqui o código para montagem com o efs (tópico 5.11), nesse laboratório a montagem foi feita no diretório data, você precisa estar dentro da pasta que está o diretório montado)
-cd compose && vi docker-compose.yml
-(colar o código do docker-compose.yml, e salvar e sair)
-vi .env 
-(colar o arquivo .env aqui, salvar e sair)
-docker-compose up
-```
+<img src="./clb/cl6.png">
 
-### 10. Acessando o servidor Wordpress
+7.8 Copiar o DNS do clb.
+> Usaremos o dns em breve para acessarmos no navegador as instâncias wordpress.
 
-10.1 Selecionar instância no Console da Amazon AWS; selecionar ***Details***; copiar o IP público da instância (Public IPv4 address).
+<img src="./clb/cl6.png">
 
-<img src="./access/access1.png">
+### 8. Criando o Auto Scaling Group
 
-10.2 Digitar no navegador http://ip_da_instancia:80
+8.1 Procurar e selecionar ***EC2*** no console da AWS.
 
-<img src="./access/access2.png">
+<img src="./sg/sg1.png">
 
-(criar security group do rds e depois o rds, depois o efs e associar as subnets publicas (que estao as instancias) depois criar a instancia)
+8.2 Selecionar ***Auto Scaling Groups*** e ***Create Auto Scaling Group***.
 
-(criar uma launch template, criar um auto scaling group, criar classic load balancer, criar metrica/monitoramento clooud watcch )
+<img src="./asg/asg1.png">
+
+8.3 Inserir nome do auto scaling group; selecionar template criado anteriormente,  ***Latest*** e ***Next***.
+
+<img src="./asg/asg2.png">
+
+8.4 Selecionar Vpc criada anteriormente, as subnetes privadas (1-a e 1-b), ***Balanced best effort*** e ***Next***. 
+
+<img src="./asg/asg3.png">
+
+8.5 Selecionar ***Attach to an existing load balancer***, ***Choose from Classic Load Balancers*** e o clb criado.
+
+<img src="./asg/asg4.png">
+
+8.6 Habilitar "Turn on Elastic Load Balancing health checks" e selecionar ***Next***.
+
+<img src="./asg/asg5.png"
+
+8.7 Desired capacity 2; Min desired capacity: 2; Max desired capacity: 4; habilitar "Enable group metrics collection within CloudWatch"; selecionar ***Next***(3 vezes) e ***Create Auto Scalilng Group***.
+
+<img src="./asg/asg6.png">
+
+<img src="./asg/asg7.png">
+
+* Após criar o auto scaling group e vinculá-lo ao load balancer, podemos perceber que 2 instâncias foram criadas (mínimo conforme nosso auto scaling group) e em diferentes zonas de disponibilidade e subnet (conforme foi configurado o clb).
+
+<img src="./asg/asg8.png">
+
+* E as subnets das instâncias wordpress são privadas conforme a configuração do auto scaling group.
+
+<img src="./asg/asg9.png">
+
+### 9. Criando política de monitoramento do CloudWatch para monitorar as instâncias Wordpress
+
+9.1 Procurar e selecionar ***EC2*** no console da AWS.
+
+<img src="./sg/sg1.png">
+
+9.2 Selecionar ***Auto Scaling Groups*** e o auto scaling group criado.
+
+<img src="./clwatch/wat1.png.png">
+
+9.3 Selecionar ***Automatic scaling*** e ***Create dynamic scaling policy***.
+<img src="./clwatch/wat2.png.png">
+
+9.4 Policy type: Simple Scaling; inserir nome da politíca de scaling; add 1 capacity units; selecionar ***Create***.
+> Essa política vai adicionar uma instancia ao auto scaling group.
+
+<img src="./clwatch/wat3.png.png">
+
+9.5 Procurar e selecionar ***CloudWatch***.
+<img src="./clwatch/wat4.png.png">
+
+9.6 Selecionar ***Alarms***, ***In alarm***, ***Create alarm*** e ***Select Metric***.
+
+9.7 Selecionar ***EC2***, ***By Auto Scaling Group***.
+
+9.8 Selecionar métrica de utilização de processador e ***Select metric***.
+
+9.9 Greather than 94, selecionar ***Next***.
+
+9.10 Selecionar ***Remove***(Notification).
+
+9.11 Selecionar ***Add Auto Scaling action***; ***In alarm***; ***EC2 Auto Scaling group***; selecionar o grupo de auto scaling criado anteriormente e ***Next***.
+<img src="./clwatch/wat5.png.png">
+
+9.12 Inserir nome do alarme CloudWatch e selecionar 2X ***Next*** e selecionar ***Create alarm***.
+
+9.13 Selecionar o ícone do power shell e executar o comando `aws cloudwatch set-alarm-state --alarm-name "nome_alarme" --state-value ALARM --state-reason "motivo_teste"`.
+> Esse comando força o CloudWatch disparar o alarme (indepedente se a métrica esteja sendo atendida, como consequencia o auto scaling group executará a ação configurada na política personalizada).
+
+<img src="./clwatch/wat6.png.png">
+
+<img src="./clwatch/wat7.png.png">
+
+* O alarme foi disparado:
+
+<img src="./clwatch/wat8.png.png">
+
+* Uma terceira instância foi criada e esta sendo inicializada, conforme a política de scaling.
+
+<img src="./clwatch/wat9.png.png">
+
+### 11. 0 Teste final - acessando o Wordpress pelo DNS do CLB
+
+* Copiar e colar DNS do load balance no navegador.
+
+<img src="./teste_final/tes1.png"></img>
+
+* Criando um usuário do Wordpress e instalando o Wordpress.
+
+<img src="./teste_final/tes2.png"></img>
+
+<img src="./teste_final/tes3.png"></img>
+
+<img src="./teste_final/tes4.png"></img>
+
+<img src="./teste_final/tes5.png"></img>
