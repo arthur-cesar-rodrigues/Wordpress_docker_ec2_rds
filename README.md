@@ -387,7 +387,7 @@ tp4
 7.8 Copiar o DNS do clb.
 > Usaremos o dns em breve para acessarmos no navegador as instâncias wordpress.
 
-<img src="./clb/cl6.png">
+<img src="./clb/cl7.png">
 
 ### 8. Criando o Auto Scaling Group
 
